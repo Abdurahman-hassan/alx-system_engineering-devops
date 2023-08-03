@@ -1,0 +1,37 @@
+msg - [Got]
+-rwxr-xr-x
+-rwxr-xr-x
+-rwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+
+(66 chars long)
+
+[Expected]
+-rw-r--r--
+-rw-r--r--
+-rw-r--r--
+drwxr-xr-x
+drwxr-xr-x
+drwxr-xr-x
+
+
+x: grants execute permissions to the specified user(s) regardless of the file type (i.e., both files and directories)
+
+X: grants execute permissions only to directories and files which already have at least one execute permission bit already set (user, group, or other). This means if a file does not have execute permission for any user, using X will not add it. However, it will always set execute permissions for directories.
+
+In your case, if you use chmod ogu+X -R ., it will add execute permission for all (owner, group, others) for every directory in the current directory and its subdirectories (recursively due to -R). It will also add execute permission to any files that already have at least one execute permission set, but it won't add execute permissions to files that don't have any execute permissions set.
+
+
+X: Add the execution permission to the group and all to files  that allready have the user execution permission 
+Also i can use
+
+chmod a+x */ 
+
+chmod: This is the command that changes the permissions of a file or directory.
+a: This stands for 'all', meaning the change will apply to the owner, group, and others.
++x: This means that execution permission should be added.
+*/: This selects all directories in the current directory. The / at the end is a way to tell bash that you are looking for directories, not files.
+
+This command won't descend into subdirectories, meaning it only operates on directories that are directly inside the current directory. It won't change permissions for subdirectories of those directories or for files. If you need to do this recursively for all subdirectories, you would typically use the find command or the chmod -R option, but with careful usage as discussed in previous responses.
