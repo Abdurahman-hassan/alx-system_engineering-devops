@@ -1,0 +1,64 @@
+- Create the magic file with the matching rule:
+
+echo "0 string SCHOOL School data" > school
+
+- Compile this file into a magic file:
+
+file -C -m school
+/* No output on successful completion */
+
+- Create a test file test1 that starts with the string "SCHOOL":
+
+echo "SCHOOL This is a test." > test1
+Create another test file test2 that does not start with "SCHOOL":
+
+echo "This is another test." > test2
+Run the file command with the -m option to specify our magic file, and check the type of test1:
+
+file -m school.mgc test1
+/* Output: test1: School data */
+
+
+file -m school.mgc test2
+/* Output: test2: ASCII text, with no line terminators *
+
+
+
+
+ubuntu@ip-172-31-63-244:/tmp/magic$ cp /bin/ls .
+ubuntu@ip-172-31-63-244:/tmp/magic$ ls -la
+total 268
+drwxrwxr-x  2 ubuntu ubuntu   4096 Sep 20 02:44 .
+drwxrwxrwt 11 root   root   139264 Sep 20 02:44 ..
+-rw-r--r--  1 ubuntu ubuntu    496 Sep 20 02:42 school.mgc
+-rwxr-xr-x  1 ubuntu ubuntu 110080 Sep 20 02:43 ls
+-rw-rw-r--  1 ubuntu ubuntu     50 Sep 20 02:06 thisisaschoolfile
+-rw-rw-r--  1 ubuntu ubuntu     30 Sep 20 02:16 thisisatextfile
+ubuntu@ip-172-31-63-244:/tmp/magic$ file --mime-type -m school.mgc *
+school.mgc:         application/octet-stream
+ls:                    application/octet-stream
+thisisaschoolfile: School
+thisisatextfile:       text/plain
+ubuntu@ip-172-31-63-244:/tmp/magic$ file -m school.mgc *
+school.mgc:         data
+ls:                    data
+thisisaschoolfile: School data
+thisisatextfile:       ASCII text
+ubuntu@ip-172-31-63-244:/tmp/magic
+
+
+i should change the role in order to match this output 
+
+i should add 
+!:mime School
+to the school file and i should compile it again
+
+because if i run this 
+file --mime-type -m school.mgc *
+i should got School
+
+and when i run this 
+file -m school.mgc *
+i should got School data 
+
+!:mime School determint and identify the type of MIME
