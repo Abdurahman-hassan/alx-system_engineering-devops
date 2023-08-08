@@ -1,0 +1,29 @@
+grep -A 3 'cherry' sample.txt
+# output 
+
+# 3 cherry
+# 4 date
+# 5 mango
+# 6 banana
+
+
+
+grep -B 3 'cherry' sample.txt
+# output 
+
+# 1 date
+# 2 mango
+# 3 banana
+# 4 cherry
+
+grep -C 3 'cherry' sample.txt
+# output 3 before 3 after
+
+# 1 Apple
+# 2 banana
+# 3 mango
+# 4 cherry
+# 5 watermillio
+# 6 date
+# 7 guava
+i
