@@ -1,0 +1,2 @@
+#!/bin/ban
+printf "%x\n" $DECIMAL
