@@ -1,2 +1,2 @@
-#!/bin/ban
+#!/bin/bash
 printf "%x\n" $DECIMAL
