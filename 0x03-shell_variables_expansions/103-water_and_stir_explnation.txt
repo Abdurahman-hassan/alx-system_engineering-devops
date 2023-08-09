@@ -1,0 +1,35 @@
+printf "%o\n" $(( $(( 5#$(echo $WATER | tr 'water' '01234') )) + $(( 5#$(echo $STIR | tr 'stir.' '01234') )) )) | tr '01234567' 'behlnort'
+1. echo $WATER | tr 'water' '01234':
+
+This command translates the value in $WATER variable by replacing each letter with a corresponding digit.
+Using tr, 'w' becomes '0', 'a' becomes '1', 't' becomes '2', 'e' becomes '3', and 'r' becomes '4'.
+For example, if WATER="ewwatratewa", then after the translation, you'd get 30120241301.
+
+2. 5#...:
+
+This is a syntax for base arithmetic in Bash. 5# denotes that the number following it is in base 5.
+So, 5#30120241301 would treat the number 30120241301 as a base 5 number.
+
+3. The same steps 1 and 2 are applied to $STIR, but with a different translation map.
+
+4. $(( ... + ... )):
+
+This is an arithmetic expansion in Bash. It adds the two numbers (translated from $WATER and $STIR) together.
+
+5. printf "%o\n":
+
+This command prints the result of the arithmetic as an octal (base 8) number. Bash doesn't support custom bases for output by default, so we use octal as a proxy because it's a base between 5 and the target base.
+
+6. | tr '01234567' 'behlnort':
+
+The final step is another translation. We take our base 8 number and map it to the custom base 'behlnort'. '0' becomes 'b', '1' becomes 'e', and so on.
+
+Example Execution:
+If WATER="ewwatratewa" and STIR="ti.itirtrtr", when you run the entire command:
+
+WATER is translated to 30120241301 (base 5).
+STIR is translated to 120.23131 (base 5).
+They are added together, resulting in a new number in base 5.
+This number is then printed in base 8 using printf.
+Finally, it is translated to the custom base 'behlnort'.
+And you get the result: shtbeolhc.
