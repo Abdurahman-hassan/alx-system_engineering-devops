@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script reads /etc/passwd
-# and displays information about each userin a specific format
+# and displays information about each user in a specific format
 
 while IFS=: read -r username password userid groupid userinfo homedir shell; do
     echo "The user
