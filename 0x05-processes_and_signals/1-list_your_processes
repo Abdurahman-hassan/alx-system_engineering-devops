@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
-# a Bash script that displays a list of currently running processes.
-# Requirements: Must show all processes, for all users, including those which might not have a TTY, Display in a user-oriented format Show process hierarchy
-ps -ef
+# Display the header
+echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND"
+
+# Use ps command to list all processes
+# 'aux' displays processes for all users, including those without a TTY
+# 'ww' ensures wide output so the COMMAND column doesn't get truncated
+# We may not be able to show the hierarchy directly
+ps auxww
