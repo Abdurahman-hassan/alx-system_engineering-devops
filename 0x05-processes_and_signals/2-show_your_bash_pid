@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Use ps to get all processes and grep to find "bash"
+# shellcheck disable=SC2009
+ps -uafx | grep "[b]ash"
