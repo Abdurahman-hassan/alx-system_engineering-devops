@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Function to execute when SIGTERM is received
+on_sigterm() {
+    echo "I am invincible!!!"
+}
+
+# Trap SIGTERM signal and call on_sigterm function
+trap on_sigterm SIGTERM
+
+# Infinite loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done
