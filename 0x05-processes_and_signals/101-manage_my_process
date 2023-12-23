@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Path to the PID file
+PID_FILE="/var/run/my_process.pid"
+# Path to the manage_my_process script
+PROCESS_SCRIPT="./manage_my_process"
+
+# Function to start manage_my_process
+start() {
+    # Start manage_my_process in the background
+    $PROCESS_SCRIPT &
+    # Save the PID of the process to the PID file
+    echo $! > "$PID_FILE"
+    echo "manage_my_process started"
+}
+
+# Function to stop manage_my_process
+stop() {
+    # Check if the PID file exists
+    if [ -f "$PID_FILE" ]; then
+        # Kill the process using the saved PID and remove the PID file
+        kill "$(cat "$PID_FILE")" && rm -f "$PID_FILE"
+        echo "manage_my_process stopped"
+    else
+        echo "No PID file found. Is manage_my_process running?"
+    fi
+}
+
+# Function to restart manage_my_process
+restart() {
+    # Stop and then start manage_my_process
+    stop
+    start
+}
+
+# Main logic to handle start, stop, and restart commands
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        # Display usage information if an invalid command is provided
+        echo "Usage: manage_my_process {start|stop|restart}"
+        ;;
+esac

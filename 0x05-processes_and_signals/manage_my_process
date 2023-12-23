@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Infinite loop
+while true; do
+    # Append "I am alive!" to the file /tmp/my_process
+    echo "I am alive!" >> /tmp/my_process
+
+    # Wait for 2 seconds before the next iteration
+    sleep 2
+done
