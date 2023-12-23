@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Define the file path in a variable
 PID_FILE="/var/run/myscript.pid"
 
