@@ -1,24 +1,44 @@
 #!/usr/bin/env bash
 # Bash (init) script 101-manage_my_process that manages manage_my_process.
 
+#!/usr/bin/env bash
+# Bash (init) script 101-manage_my_process that manages manage_my_process.
+
+PID_FILE="/var/run/my_process.pid"
+PROCESS_SCRIPT="./manage_my_process"
+
+start_process() {
+    $PROCESS_SCRIPT &
+    echo $! > "$PID_FILE"
+    echo "manage_my_process started"
+}
+
+stop_process() {
+    if [ -f "$PID_FILE" ]; then
+        kill "$(pgrep -f $PROCESS_SCRIPT)"
+        rm -f "$PID_FILE"
+        echo "manage_my_process stopped"
+    else
+        echo "manage_my_process is not running or PID file is missing"
+    fi
+}
+
+restart_process() {
+    stop_process
+    sleep 1  # Allow some time for the process to be killed
+    start_process
+}
+
+# Main logic to handle start, stop, and restart commands
 case "$1" in
     "start")
-        ./manage_my_process &
-        echo $! > /var/run/my_process.pid
-        echo "manage_my_process started"
+        start_process
         ;;
     "stop")
-        kill "$(pgrep -f manage_my_process)"
-        rm -f /var/run/my_process.pid
-        echo "manage_my_process stopped"
+        stop_process
         ;;
     "restart")
-        kill "$(pgrep -f manage_my_process)"
-        sleep 1  # Allow some time for the process to be killed
-        rm -f /var/run/my_process.pid
-        ./manage_my_process &
-        echo $! > /var/run/my_process.pid
-        echo "manage_my_process restarted"
+        restart_process
         ;;
     *)
         echo "Usage: manage_my_process {start|stop|restart}"
