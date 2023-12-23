@@ -31,5 +31,5 @@ trap cleanup_and_exit SIGQUIT
 # Infinite loop
 while true; do
     echo "To infinity and beyond"
-    sleep 3
+    sleep 2
 done
