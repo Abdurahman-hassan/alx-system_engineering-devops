@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script copy the /etc/hosts file to ~/hosts.new
+# and change the IP address of localhost and facebook.com
+#   - localhost resolves to 127.0.0.2
+#   - facebook.com resolves to 8.8.8.8
+
+cp /etc/hosts ~/hosts.new
+echo "127.0.0.2		localhost" > ~/hosts.new
+echo "8.8.8.8		facebook.com" >> ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
