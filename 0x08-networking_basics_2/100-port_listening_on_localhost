@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#Listens on port 98 on localhost.
+#When a connection is made, it will print the contents
+#of the request to stdout and send back a response.
+
+nc -l localhost 98
