@@ -1,0 +1,7 @@
+# This is the configuration file for the SSH client.
+# It is used by the SSH client to know which private key to use when connecting to a remote server.
+
+Host *
+  IdentityFile ~/.ssh/school
+  PasswordAuthentication no
+  PubkeyAuthentication yes
