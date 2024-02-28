@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
+sudo su
+
 # Update the package list
 apt-get update -y
 
 # Install Nginx
-apt-get install -y nginx
+apt-get install nginx -y
 
 # Make sure Nginx is started
 service nginx start
 
 # Create a custom HTML file to serve
 echo "Hello World!" > /var/www/html/index.html
+
+# Modify the Nginx configuration to listen on port 80 if not already
+sed -i '/listen 80 default_server;/c\    listen 80;' /etc/nginx/sites-available/default
+sed -i '/listen \[::\]:80 default_server;/c\    listen [::]:80;' /etc/nginx/sites-available/default
 
 # Instead of using systemctl to restart Nginx, we use service command as an alternative
 service nginx restart
