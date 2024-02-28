@@ -17,6 +17,3 @@ sed -i '/listen \[::\]:80 default_server;/c\    listen [::]:80;' /etc/nginx/site
 
 # Instead of using systemctl to restart Nginx, we use service command as an alternative
 service nginx restart
-
-# Ensure the firewall allows HTTP traffic
-ufw allow 'Nginx HTTP'
