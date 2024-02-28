@@ -8,9 +8,6 @@ apt-get update -y
 # Install Nginx
 apt-get install nginx -y
 
-# Make sure Nginx is started
-service nginx start
-
 # Create a custom HTML file to serve
 echo "Hello World!" > /var/www/html/index.html
 
