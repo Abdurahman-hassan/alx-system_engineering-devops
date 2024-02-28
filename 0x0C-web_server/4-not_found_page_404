@@ -7,7 +7,7 @@ apt-get install -y nginx
 echo "Hello World!" > /var/www/html/index.html
 
 # Create the custom 404 page.
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "test string" > /var/www/html/404.html
 
 # Configure Nginx server
 cat > /etc/nginx/sites-available/default <<EOF
