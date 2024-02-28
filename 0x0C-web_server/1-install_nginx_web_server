@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
+# loging as root
 sudo su
 
-# Update the package list
+# Update the apt package index and install packages to allow apt to use a repository over HTTPS:
 apt-get update -y
+apt-get install -y nginx
 
-# Install Nginx
-apt-get install nginx -y
-
-# Create a custom HTML file to serve
+# write a simple message to /var/www/html/index.html
 echo "Hello World!" > /var/www/html/index.html
 
-# Instead of using systemctl to restart Nginx, we use service command as an alternative
+# Restart the Nginx service to apply the new configuration.
 service nginx restart
