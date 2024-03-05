@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# This script installs and configures HAProxy on a web server.
+
+# Update package lists and Install HAProxy
+apt-get update -y
+apt-get install -y haproxy
+
+# Enable HAProxy
+sudo systemctl enable haproxy
+
+# Back up the original HAProxy configuration file
+mv /etc/haproxy/haproxy.cfg{,.original}
+
+# Create a new HAProxy configuration file
+cat > /etc/haproxy/haproxy.cfg <<EOF
+global
+    log     127.0.0.1 local0 notice
+    maxconn 2000
+    user    haproxy
+    group   haproxy
+
+defaults
+	log     global
+	mode    http
+	option  httplog
+	option  dontlognull
+	retries 3
+	option  redispatch
+	timeout connect  5000
+	timeout client  10000
+	timeout server  10000
+
+listen alx
+    bind    *:80
+    mode    http
+    stats   enable
+    stats   uri /haproxy?stats
+    balance roundrobin
+    option  httpclose
+    option  forwardfor
+    server  500280-web-01 18.206.207.101:80 check
+    server  500280-web-02 54.174.244.164:80 check
+EOF
+
+# Restart the HAProxy service
+service haproxy restart
