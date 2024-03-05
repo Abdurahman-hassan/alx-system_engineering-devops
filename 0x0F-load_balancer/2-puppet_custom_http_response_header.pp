@@ -1,26 +1,20 @@
-# Configures a new Ubuntu machine to respect following requirements
+# This Puppet manifest installs the Nginx web server and adds a new HTTP header to the default site configuration file.
+
+exec { 'update packages':
+  provider => 'shell',
+  command  => 'sudo apt-get -y update',
+}
 
 package { 'nginx':
+  ensure   => 'present',
+  provider => apt,
+}
+
+file_line { 'add new HTTP header':
   ensure => 'present',
-}
-
-exec { 'root_page':
-  provider => shell,
-  command  => 'sudo echo Hello World! > /var/www/html/index.html',
-}
-
-exec { 'redirect':
-  provider => shell,
-  command  =>
-    'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/oluwaseundasilva.hashnode.dev\/;\\n\\t}/" /etc/nginx/sites-available/default'
-  ,
-}
-
-exec { 'add_custom_header':
-  provider => shell,
-  command  =>
-    "sed -i '/^\tserver_name _;/a \\t\\tadd_header X-Served-By \$(hostname);' /etc/nginx/sites-available/default",
-  require  => Package['nginx'],
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => "add_header X-Served-By \"${hostname}\";"
 }
 
 exec { 'restart_server':
