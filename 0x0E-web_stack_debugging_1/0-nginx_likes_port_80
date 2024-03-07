@@ -3,6 +3,5 @@
 
 sudo apt-get update -y
 sudo apt-get install -y nginx
-sudo service nginx start
 sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
-service nginx restart
+sudo service nginx restart
