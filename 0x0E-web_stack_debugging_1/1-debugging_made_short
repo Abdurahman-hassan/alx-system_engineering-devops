@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Configure Nginx to run on port 80 in order to serve the web pages it hosts.
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx start
+kill "$(pgrep 'nginx' | head -1)"
