@@ -15,19 +15,16 @@ defaults
     timeout client  10000
     timeout server  10000
 
-# Frontend for HTTP traffic, redirecting to HTTPS
 frontend http-in
     bind *:80
     mode http
     redirect scheme https code 301 if !{ ssl_fc }
 
-# Frontend for HTTPS traffic
 frontend https-in
     bind *:443 ssl crt /etc/letsencrypt/live/greencoder.tech/fullchain.pem privkey /etc/letsencrypt/live/greencoder.tech/privkey.pem
     mode http
     default_backend web-servers
 
-# Backend definition
 backend web-servers
     balance roundrobin
     option  httpclose
