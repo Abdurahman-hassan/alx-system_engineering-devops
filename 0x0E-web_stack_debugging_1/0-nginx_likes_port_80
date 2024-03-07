@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Configure Nginx to run on port 80 in order to serve the web pages it hosts.
 
+# Update the server's Nginx configuration to listen on port 80 instead of the default port 8080.
 rm /etc/nginx/sites-enabled/default
+
+# Create a symbolic link so that /etc/nginx/sites-enabled/default is linked to /etc/nginx/sites-available/default.
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx restart
