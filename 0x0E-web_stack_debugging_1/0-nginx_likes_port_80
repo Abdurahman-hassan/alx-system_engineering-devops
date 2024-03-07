@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 # Check if nginx is installed, if not install it
-
-if ! command -v nginx &> /dev/null
-then
-    sudo apt-get update
-    sudo apt-get install -y nginx
-fi
-sudo service nginx start
 # Check if nginx is listening on port 80
 if ! netstat -tuln | grep :80 &> /dev/null
 then
