@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Check if nginx is installed, if not install it
 
+# these commands are used to install nginx
 sudo apt-get update -y
 sudo apt-get install -y nginx
 sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
