@@ -6,10 +6,7 @@ then
     apt-get update
     apt-get install -y nginx
 fi
-
-# Start nginx service
 service nginx start
-
 # Check if nginx is listening on port 80
 if ! netstat -tuln | grep :80 &> /dev/null
 then
@@ -17,6 +14,5 @@ then
     cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
     # Change the listen directive to listen on port 80
     sed -i 's/listen .*/listen 80;/' /etc/nginx/sites-available/default
-    # Restart nginx to apply the changes
     service nginx restart
 fi
