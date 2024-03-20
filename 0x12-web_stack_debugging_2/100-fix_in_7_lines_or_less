@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# fix container of task2 to work with nginx
-pkill -f apache2
-chmod 644 /etc/nginx/nginx.conf
-sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
-sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
+# Configure a broken container to work with nginx at port 8080
+pkill apache2
+chown nginx /etc/nginx/nginx.conf
+chmod u+r /etc/nginx/nginx.conf
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
 sudo -u nginx service nginx restart
