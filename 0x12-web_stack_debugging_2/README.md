@@ -1,0 +1,1 @@
+# This is a project of 0x12-web_stack_debugging_2 at Holberton School
