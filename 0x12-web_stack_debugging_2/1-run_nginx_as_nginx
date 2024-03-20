@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# fix container of task2 to work with nginx
+# kill apache2 and restart nginx
+pkill -f apache2
+# change permissions of nginx.conf and add user directive
+chmod 644 /etc/nginx/nginx.conf
+# change port to 8080
+sed -i "1i user nginx;" /etc/nginx/nginx.conf
+sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
+# restart nginx
+sudo -u nginx service nginx restart
