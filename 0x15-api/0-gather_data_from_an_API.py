@@ -8,10 +8,10 @@ if __name__ == "__main__":
     response = requests.get(url)
     user = response.json()
     name = user.get('name')
-    url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(argv[1])
+    url = f'https://jsonplaceholder.typicode.com/todos?userId={argv[1]}'
     response = requests.get(url)
     todos = response.json()
     done = [todo for todo in todos if todo.get('completed') is True]
-    print('Employee {} is done with tasks({}/{}):'.format(name, len(done), len(todos)))
+    print(f'\t Employee {name} is done with tasks({len(done)}/{len(todos)}):')
     for todo in done:
         print('\t {}'.format(todo.get('title')))
